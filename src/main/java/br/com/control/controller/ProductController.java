@@ -16,77 +16,77 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import br.com.control.model.Category;
-import br.com.control.service.CategoryService;
+import br.com.control.service.ProductService;
+import br.com.control.model.Product;
 
 @Controller
-@RequestMapping("/panel/category")
+@RequestMapping("/panel/product")
 @SessionAttributes("roles")
-public class CategoryController {
+public class ProductController {
 
 	@Autowired
-    CategoryService categoryService;
+    ProductService productService;
      
     @Autowired
     MessageSource messageSource;
 
-    @RequestMapping(value = {"/", "/list" }, method = RequestMethod.GET)
+ 	@RequestMapping(value = {"/", "/list" }, method = RequestMethod.GET)
     public String listCategorys(ModelMap model) {
-    	List<Category> category = categoryService.findAll();
-        model.addAttribute("category", category);
+		List<Product> product = productService.findAll();
+        model.addAttribute("product", product);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "product-list";
     }
  
     @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
     public String newCategory(ModelMap model) {
-	    Category category = new Category();
-        model.addAttribute("category", category);
+        Product product = new Product();
+        model.addAttribute("product", product);
         model.addAttribute("edit", false);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-new";
+        return "product-new";
     }
 
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-    public String saveCategory(@Valid Category category, BindingResult result, ModelMap model) {
-		if (result.hasErrors()) {
-            return "category-new";
+    public String saveCategory(@Valid Product product, BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "product-new";
         }
          
-        categoryService.save(category);
+        productService.save(product);
  
-        model.addAttribute("success", "Category " + category.getName() + " registered successfully");
+        model.addAttribute("success", "Product " + product.getName() + " registered successfully");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "category-list";
+        return "product-list";
     }
 
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
     public String editCategory(@PathVariable int id, ModelMap model) {
-        Category category = categoryService.findById(id);
-        model.addAttribute("category", category);
+        Product product = productService.findById(id);
+        model.addAttribute("product", product);
         model.addAttribute("edit", true);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-new";
+        return "product-new";
     }
      
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.POST)
-    public String updateCategory(@Valid Category category, BindingResult result, ModelMap model, @PathVariable int id) {
+    public String updateCategory(@Valid Product product, BindingResult result, ModelMap model, @PathVariable int id) {
 		if (result.hasErrors()) {
-            return "category-new";
+            return "product-new";
         }
  
-        categoryService.update(category);
+        productService.update(product);
  
-        model.addAttribute("success", "Category " + category.getName() + " updated successfully");
+        model.addAttribute("success", "Product " + product.getName() + " updated successfully");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "product-list";
     }
 
     @RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
     public String deleteCategory(@PathVariable int id) {
-		categoryService.delete(id);
-        return "redirect:/panel/category/category-list";
+        productService.delete(id);
+        return "redirect:/panel/product/product-list";
     }
 
     private String getPrincipal(){

@@ -16,77 +16,77 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import br.com.control.model.Category;
-import br.com.control.service.CategoryService;
+import br.com.control.model.Purchase;
+import br.com.control.service.PurchaseService;
 
 @Controller
-@RequestMapping("/panel/category")
+@RequestMapping("/panel/purchase")
 @SessionAttributes("roles")
-public class CategoryController {
+public class PurchaseController {
 
-	@Autowired
-    CategoryService categoryService;
+	@Autowired		
+    PurchaseService purchaseService;
      
     @Autowired
     MessageSource messageSource;
-
+    
     @RequestMapping(value = {"/", "/list" }, method = RequestMethod.GET)
     public String listCategorys(ModelMap model) {
-    	List<Category> category = categoryService.findAll();
-        model.addAttribute("category", category);
+		List<Purchase> purchase = purchaseService.findAll();
+        model.addAttribute("purchase", purchase);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "purchase-list";
     }
  
     @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
     public String newCategory(ModelMap model) {
-	    Category category = new Category();
-        model.addAttribute("category", category);
+		Purchase purchase = new Purchase();
+        model.addAttribute("purchase", purchase);
         model.addAttribute("edit", false);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-new";
+        return "purchase-new";
     }
 
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-    public String saveCategory(@Valid Category category, BindingResult result, ModelMap model) {
+    public String saveCategory(@Valid Purchase purchase, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-            return "category-new";
+            return "purchase-new";
         }
          
-        categoryService.save(category);
+        purchaseService.save(purchase);
  
-        model.addAttribute("success", "Category " + category.getName() + " registered successfully");
+        model.addAttribute("success", "Purchase " + purchase.getProduct() + " registered successfully");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "category-list";
+        return "purchase-list";
     }
 
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
     public String editCategory(@PathVariable int id, ModelMap model) {
-        Category category = categoryService.findById(id);
-        model.addAttribute("category", category);
+		Purchase purchase = purchaseService.findById(id);
+        model.addAttribute("purchase", purchase);
         model.addAttribute("edit", true);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-new";
+        return "purchase-new";
     }
      
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.POST)
-    public String updateCategory(@Valid Category category, BindingResult result, ModelMap model, @PathVariable int id) {
+    public String updateCategory(@Valid Purchase purchase, BindingResult result, ModelMap model, @PathVariable int id) {
 		if (result.hasErrors()) {
-            return "category-new";
+            return "purchase-new";
         }
  
-        categoryService.update(category);
+        purchaseService.update(purchase);
  
-        model.addAttribute("success", "Category " + category.getName() + " updated successfully");
+        model.addAttribute("success", "Purchase " + purchase.getProduct() + " updated successfully");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "purchase-list";
     }
 
     @RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
     public String deleteCategory(@PathVariable int id) {
-		categoryService.delete(id);
-        return "redirect:/panel/category/category-list";
+		purchaseService.delete(id);
+        return "redirect:/panel/purchase/purchase-list";
     }
 
     private String getPrincipal(){

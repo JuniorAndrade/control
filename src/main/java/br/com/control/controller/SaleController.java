@@ -16,77 +16,77 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import br.com.control.model.Category;
-import br.com.control.service.CategoryService;
+import br.com.control.model.Sale;
+import br.com.control.service.SaleService;
 
 @Controller
-@RequestMapping("/panel/category")
+@RequestMapping("/panel/sale")
 @SessionAttributes("roles")
-public class CategoryController {
+public class SaleController {
 
-	@Autowired
-    CategoryService categoryService;
+	@Autowired		
+    SaleService saleService;
      
     @Autowired
     MessageSource messageSource;
-
+    
     @RequestMapping(value = {"/", "/list" }, method = RequestMethod.GET)
     public String listCategorys(ModelMap model) {
-    	List<Category> category = categoryService.findAll();
-        model.addAttribute("category", category);
+		List<Sale> sale = saleService.findAll();
+        model.addAttribute("sale", sale);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "sale-list";
     }
  
     @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
     public String newCategory(ModelMap model) {
-	    Category category = new Category();
-        model.addAttribute("category", category);
+		Sale sale = new Sale();
+        model.addAttribute("sale", sale);
         model.addAttribute("edit", false);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-new";
+        return "sale-new";
     }
 
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-    public String saveCategory(@Valid Category category, BindingResult result, ModelMap model) {
+    public String saveCategory(@Valid Sale sale, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-            return "category-new";
+            return "user-new";
         }
          
-        categoryService.save(category);
+        saleService.save(sale);
  
-        model.addAttribute("success", "Category " + category.getName() + " registered successfully");
+        model.addAttribute("success", "Sale " + sale.getProduct() + " registered successfully");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "category-list";
+        return "sale-list";
     }
 
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
     public String editCategory(@PathVariable int id, ModelMap model) {
-        Category category = categoryService.findById(id);
-        model.addAttribute("category", category);
+		Sale sale = saleService.findById(id);
+        model.addAttribute("sale", sale);
         model.addAttribute("edit", true);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-new";
+        return "sale-new";
     }
      
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.POST)
-    public String updateCategory(@Valid Category category, BindingResult result, ModelMap model, @PathVariable int id) {
+    public String updateCategory(@Valid Sale sale, BindingResult result, ModelMap model, @PathVariable int id) {
 		if (result.hasErrors()) {
-            return "category-new";
+            return "sale-new";
         }
  
-        categoryService.update(category);
+        saleService.update(sale);
  
-        model.addAttribute("success", "Category " + category.getName() + " updated successfully");
+        model.addAttribute("success", "Sale " + sale.getProduct() + " updated successfully");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "sale-list";
     }
 
     @RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
     public String deleteCategory(@PathVariable int id) {
-		categoryService.delete(id);
-        return "redirect:/panel/category/category-list";
+        saleService.delete(id);
+        return "redirect:/panel/sale/sale-list";
     }
 
     private String getPrincipal(){
@@ -100,4 +100,6 @@ public class CategoryController {
         }
         return userName;
     }
+
 }
+

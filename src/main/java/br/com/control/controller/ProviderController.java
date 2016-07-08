@@ -16,79 +16,79 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import br.com.control.model.Category;
-import br.com.control.service.CategoryService;
+import br.com.control.model.Provider;
+import br.com.control.service.ProviderService;
 
 @Controller
-@RequestMapping("/panel/category")
+@RequestMapping("/panel/provider")
 @SessionAttributes("roles")
-public class CategoryController {
+public class ProviderController {
 
-	@Autowired
-    CategoryService categoryService;
+	@Autowired		
+    ProviderService providerService;
      
     @Autowired
     MessageSource messageSource;
-
+    
     @RequestMapping(value = {"/", "/list" }, method = RequestMethod.GET)
     public String listCategorys(ModelMap model) {
-    	List<Category> category = categoryService.findAll();
-        model.addAttribute("category", category);
+        List<Provider> provider = providerService.findAll();
+        model.addAttribute("provider", provider);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "provider-list";
     }
  
     @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
     public String newCategory(ModelMap model) {
-	    Category category = new Category();
-        model.addAttribute("category", category);
+		Provider provider = new Provider();
+        model.addAttribute("provider", provider);
         model.addAttribute("edit", false);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-new";
+        return "provider-new";
     }
 
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-    public String saveCategory(@Valid Category category, BindingResult result, ModelMap model) {
-		if (result.hasErrors()) {
-            return "category-new";
+    public String saveCategory(@Valid Provider provider, BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "provider-new";
         }
          
-        categoryService.save(category);
+        providerService.save(provider);
  
-        model.addAttribute("success", "Category " + category.getName() + " registered successfully");
+        model.addAttribute("success", "Provider " + provider.getName() + " registered successfully");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "category-list";
+        return "provider-list";
     }
 
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
     public String editCategory(@PathVariable int id, ModelMap model) {
-        Category category = categoryService.findById(id);
-        model.addAttribute("category", category);
+		Provider provider = providerService.findById(id);
+        model.addAttribute("provider", provider);
         model.addAttribute("edit", true);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-new";
+        return "provider-edit";
     }
      
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.POST)
-    public String updateCategory(@Valid Category category, BindingResult result, ModelMap model, @PathVariable int id) {
+    public String updateCategory(@Valid Provider provider, BindingResult result, ModelMap model, @PathVariable int id) {
 		if (result.hasErrors()) {
-            return "category-new";
+            return "provider-new";
         }
  
-        categoryService.update(category);
+        providerService.update(provider);
  
-        model.addAttribute("success", "Category " + category.getName() + " updated successfully");
+        model.addAttribute("success", "Provider " + provider.getName() + " updated successfully");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "provider-list";
     }
 
     @RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
     public String deleteCategory(@PathVariable int id) {
-		categoryService.delete(id);
-        return "redirect:/panel/category/category-list";
+        providerService.delete(id);
+		return "redirect:/panel/provider/provider-list";
     }
-
+    
     private String getPrincipal(){
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
