@@ -1,12 +1,10 @@
 package br.com.control.controller;
 
 import java.util.List;
-import java.util.Locale;
- 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -16,15 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
- 
-import br.com.control.model.User;
+
 import br.com.control.model.UserProfile;
 import br.com.control.service.UserProfileService;
 import br.com.control.service.UserService;
@@ -53,7 +47,14 @@ public class AppController {
     public List<UserProfile> initializeProfiles() {
         return userProfileService.findAll();
     }
-     
+
+    @RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
+    public String index(ModelMap model) {
+    	model.addAttribute("loggedinuser", getPrincipal());
+    	
+    	return "home";
+    }
+    
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
         model.addAttribute("loggedinuser", getPrincipal());
