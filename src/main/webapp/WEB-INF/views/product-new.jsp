@@ -48,6 +48,15 @@
 				                            </div>
 				                        </div>
 				                        <div class="form-group">
+				                        	<label class="col-sm-2 control-label" for="userProfiles">Permissões</label>
+				                            <div class="col-sm-10">
+				                            	<form:select path="category" items="${categorys}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm" />
+				                            	<div class="has-error">
+						                            <form:errors path="category" class="help-inline"/>
+						                        </div>
+				                            </div>
+				                        </div>
+				                        <div class="form-group">
 				                            <div class="col-sm-offset-2 col-sm-6">
 				                                <a href="<c:url value='/panel/product/list' />" class="btn btn-danger" >
 				                                    <i class="fa fa-close"></i>

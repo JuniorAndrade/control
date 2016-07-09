@@ -65,7 +65,7 @@ public class AppController {
         if (isCurrentAuthenticationAnonymous()) {
             return "login";
         } else {
-            return "redirect:/panel/";  
+            return "redirect:/panel/index";  
         }
     }
  

@@ -31,7 +31,7 @@ public class ProductController {
     MessageSource messageSource;
 
  	@RequestMapping(value = {"/", "/list" }, method = RequestMethod.GET)
-    public String listCategorys(ModelMap model) {
+    public String listProduct(ModelMap model) {
 		List<Product> product = productService.findAll();
         model.addAttribute("product", product);
         model.addAttribute("loggedinuser", getPrincipal());
@@ -39,7 +39,7 @@ public class ProductController {
     }
  
     @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
-    public String newCategory(ModelMap model) {
+    public String newProduct(ModelMap model) {
         Product product = new Product();
         model.addAttribute("product", product);
         model.addAttribute("edit", false);
@@ -48,21 +48,21 @@ public class ProductController {
     }
 
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-    public String saveCategory(@Valid Product product, BindingResult result, ModelMap model) {
+    public String saveProduct(@Valid Product product, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return "product-new";
         }
          
         productService.save(product);
  
-        model.addAttribute("success", "Product " + product.getName() + " registered successfully");
+        model.addAttribute("success", "Produto " + product.getName() + " cadastrado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "product-list";
+        return "redirect:/panel/product/list";
     }
 
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
-    public String editCategory(@PathVariable int id, ModelMap model) {
+    public String editProduct(@PathVariable int id, ModelMap model) {
         Product product = productService.findById(id);
         model.addAttribute("product", product);
         model.addAttribute("edit", true);
@@ -71,22 +71,22 @@ public class ProductController {
     }
      
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.POST)
-    public String updateCategory(@Valid Product product, BindingResult result, ModelMap model, @PathVariable int id) {
+    public String updateProduct(@Valid Product product, BindingResult result, ModelMap model, @PathVariable int id) {
 		if (result.hasErrors()) {
             return "product-new";
         }
  
         productService.update(product);
  
-        model.addAttribute("success", "Product " + product.getName() + " updated successfully");
+        model.addAttribute("success", "Produto " + product.getName() + " atualizado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "product-list";
+        return "redirect:/panel/product/list";
     }
 
     @RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
-    public String deleteCategory(@PathVariable int id) {
+    public String deleteProduct(@PathVariable int id) {
         productService.delete(id);
-        return "redirect:/panel/product/product-list";
+        return "redirect:/panel/product/list";
     }
 
     private String getPrincipal(){

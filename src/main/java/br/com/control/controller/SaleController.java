@@ -31,7 +31,7 @@ public class SaleController {
     MessageSource messageSource;
     
     @RequestMapping(value = {"/", "/list" }, method = RequestMethod.GET)
-    public String listCategorys(ModelMap model) {
+    public String listSale(ModelMap model) {
 		List<Sale> sale = saleService.findAll();
         model.addAttribute("sale", sale);
         model.addAttribute("loggedinuser", getPrincipal());
@@ -39,7 +39,7 @@ public class SaleController {
     }
  
     @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
-    public String newCategory(ModelMap model) {
+    public String newSale(ModelMap model) {
 		Sale sale = new Sale();
         model.addAttribute("sale", sale);
         model.addAttribute("edit", false);
@@ -48,21 +48,21 @@ public class SaleController {
     }
 
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-    public String saveCategory(@Valid Sale sale, BindingResult result, ModelMap model) {
+    public String saveSale(@Valid Sale sale, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
             return "user-new";
         }
          
         saleService.save(sale);
  
-        model.addAttribute("success", "Sale " + sale.getProduct() + " registered successfully");
+        model.addAttribute("success", "Venda" + sale.getProduct() + " cadastrada com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "sale-list";
+        return "redirect:/panel/sale/list";
     }
 
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
-    public String editCategory(@PathVariable int id, ModelMap model) {
+    public String editSale(@PathVariable int id, ModelMap model) {
 		Sale sale = saleService.findById(id);
         model.addAttribute("sale", sale);
         model.addAttribute("edit", true);
@@ -71,22 +71,22 @@ public class SaleController {
     }
      
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.POST)
-    public String updateCategory(@Valid Sale sale, BindingResult result, ModelMap model, @PathVariable int id) {
+    public String updateSale(@Valid Sale sale, BindingResult result, ModelMap model, @PathVariable int id) {
 		if (result.hasErrors()) {
             return "sale-new";
         }
  
         saleService.update(sale);
  
-        model.addAttribute("success", "Sale " + sale.getProduct() + " updated successfully");
+        model.addAttribute("success", "Venda " + sale.getProduct() + " atualizada com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "sale-list";
+        return "redirect:/panel/sale/list";
     }
 
     @RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
-    public String deleteCategory(@PathVariable int id) {
+    public String deleteSale(@PathVariable int id) {
         saleService.delete(id);
-        return "redirect:/panel/sale/sale-list";
+        return "redirect:/panel/sale/list";
     }
 
     private String getPrincipal(){

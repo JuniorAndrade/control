@@ -66,7 +66,7 @@
 				                            </div>
 				                        </div>
 				                        <div class="form-group">
-				                        	<label class="col-sm-2 control-label" for="userProfiles">PermissÃµes</label>
+				                        	<label class="col-sm-2 control-label" for="userProfiles">Permissões</label>
 				                            <div class="col-sm-10">
 				                            	<form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm" />
 				                            	<div class="has-error">

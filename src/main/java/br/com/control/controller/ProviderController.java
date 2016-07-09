@@ -31,7 +31,7 @@ public class ProviderController {
     MessageSource messageSource;
     
     @RequestMapping(value = {"/", "/list" }, method = RequestMethod.GET)
-    public String listCategorys(ModelMap model) {
+    public String listProvider(ModelMap model) {
         List<Provider> provider = providerService.findAll();
         model.addAttribute("provider", provider);
         model.addAttribute("loggedinuser", getPrincipal());
@@ -39,7 +39,7 @@ public class ProviderController {
     }
  
     @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
-    public String newCategory(ModelMap model) {
+    public String newProvider(ModelMap model) {
 		Provider provider = new Provider();
         model.addAttribute("provider", provider);
         model.addAttribute("edit", false);
@@ -48,21 +48,21 @@ public class ProviderController {
     }
 
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-    public String saveCategory(@Valid Provider provider, BindingResult result, ModelMap model) {
+    public String saveProvider(@Valid Provider provider, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return "provider-new";
         }
          
         providerService.save(provider);
  
-        model.addAttribute("success", "Provider " + provider.getName() + " registered successfully");
+        model.addAttribute("success", "Provider " + provider.getName() + " cadastrado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "provider-list";
+        return "redirect:/panel/provider/list";
     }
 
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
-    public String editCategory(@PathVariable int id, ModelMap model) {
+    public String editProvider(@PathVariable int id, ModelMap model) {
 		Provider provider = providerService.findById(id);
         model.addAttribute("provider", provider);
         model.addAttribute("edit", true);
@@ -71,22 +71,22 @@ public class ProviderController {
     }
      
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.POST)
-    public String updateCategory(@Valid Provider provider, BindingResult result, ModelMap model, @PathVariable int id) {
+    public String updateProvider(@Valid Provider provider, BindingResult result, ModelMap model, @PathVariable int id) {
 		if (result.hasErrors()) {
             return "provider-new";
         }
  
         providerService.update(provider);
  
-        model.addAttribute("success", "Provider " + provider.getName() + " updated successfully");
+        model.addAttribute("success", "Fornecedor " + provider.getName() + " atualizado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "provider-list";
+        return "redirect:/panel/provider/list";
     }
 
     @RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
-    public String deleteCategory(@PathVariable int id) {
+    public String deleteProvider(@PathVariable int id) {
         providerService.delete(id);
-		return "redirect:/panel/provider/provider-list";
+		return "redirect:/panel/provider/list";
     }
     
     private String getPrincipal(){

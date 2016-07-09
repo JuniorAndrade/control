@@ -55,10 +55,10 @@ public class CategoryController {
          
         categoryService.save(category);
  
-        model.addAttribute("success", "Category " + category.getName() + " registered successfully");
+        model.addAttribute("success", "Category " + category.getName() + " cadastrado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "category-list";
+        return "redirect:/panel/category/list";
     }
 
     @RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
@@ -78,15 +78,15 @@ public class CategoryController {
  
         categoryService.update(category);
  
-        model.addAttribute("success", "Category " + category.getName() + " updated successfully");
+        model.addAttribute("success", "Category " + category.getName() + " atualizado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "category-list";
+        return "redirect:/panel/category/list";
     }
 
     @RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
     public String deleteCategory(@PathVariable int id) {
 		categoryService.delete(id);
-        return "redirect:/panel/category/category-list";
+        return "redirect:/panel/category/list";
     }
 
     private String getPrincipal(){

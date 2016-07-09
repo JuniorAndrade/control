@@ -114,6 +114,17 @@
             <li><a href="<c:url value='/panel/sale/list' />"><i class="fa fa-list"></i> Listar</a></li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-user"></i>
+            <span>Usuário</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<c:url value='/panel/user/new' />"><i class="fa fa-plus"></i> Adicionar </a></li>
+            <li><a href="<c:url value='/panel/user/list' />"><i class="fa fa-list"></i> Listar</a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

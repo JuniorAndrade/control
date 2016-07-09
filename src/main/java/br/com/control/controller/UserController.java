@@ -71,10 +71,10 @@ public class UserController {
          
         userService.saveUser(user);
  
-        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
+        model.addAttribute("success", "Usuário " + user.getFirstName() + " "+ user.getLastName() + " cadastrado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
        
-        return "user-list";
+        return "redirect:/panel/user/list";
 	}
 
 	@RequestMapping(value = { "/edit/{ssoId}" }, method = RequestMethod.GET)
@@ -94,15 +94,15 @@ public class UserController {
  
         userService.updateUser(user);
  
-        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
+        model.addAttribute("success", "Usuário " + user.getFirstName() + " "+ user.getLastName() + " atualizado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
-        return "user-list";
+        return "redirect:/panel/user/list";
 	}
 
 	@RequestMapping(value = { "/delete/{ssoId}" }, method = RequestMethod.GET)
 	public String deleteCategory(@PathVariable String ssoId) {
 		userService.deleteUserBySSO(ssoId);
-        return "redirect:/panel/user/user-list";
+        return "redirect:/panel/user/list";
 	}
 
 	private String getPrincipal(){

@@ -20,7 +20,7 @@
 							<th>Id</th>
 							<th>Nome do Produto</th>
 							<th>Quantidade</th>
-							<th>PreÃ§o</th>
+							<th>Preço</th>
 						</tr>
 					</thead>
 					<tbody>
