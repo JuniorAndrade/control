@@ -47,7 +47,14 @@ public class AppController {
     public List<UserProfile> initializeProfiles() {
         return userProfileService.findAll();
     }
-     
+
+    @RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
+    public String index(ModelMap model) {
+    	model.addAttribute("loggedinuser", getPrincipal());
+    	
+    	return "home";
+    }
+    
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
         model.addAttribute("loggedinuser", getPrincipal());
