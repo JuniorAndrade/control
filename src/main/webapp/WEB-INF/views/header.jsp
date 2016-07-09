@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +11,7 @@
   <link rel="stylesheet" href="<c:url value='/static/bootstrap/css/bootstrap.min.css' /> ">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="<c:url value='/static/plugins/datatables/dataTables.bootstrap.css' />">
   <link rel="stylesheet" href="<c:url value='/static/css/AdminLTE.min.css' /> ">
   <link rel="stylesheet" href="<c:url value='/static/css/skins/_all-skins.min.css' /> ">
 
@@ -65,7 +65,7 @@
       <ul class="sidebar-menu">
         <li class="header">MENU</li>
         <li class="treeview">
-          <c:url var="homePanel" value="/panel" />
+          <c:url var="homePanel" value="/panel/index" />
           <a href="${homePanel}">
             <i class="fa fa-dashboard"></i> <span>Home</span>
           </a>

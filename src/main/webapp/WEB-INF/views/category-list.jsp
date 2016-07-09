@@ -16,7 +16,7 @@
 		                </div>
 		                <!-- /.box-header -->
 		                <div class="box-body">
-		                    <table id="relatorio-table" class="table table-bordered table-striped">
+		                    <table id="table-list" class="table table-bordered table-striped">
 		                        <thead>
 		                        <tr>
 		                            <th>Id</th>

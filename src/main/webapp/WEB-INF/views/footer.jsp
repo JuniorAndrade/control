@@ -13,5 +13,19 @@
 <script src="<c:url value='/static/plugins/fastclick/fastclick.min.js' />"></script>
 <script src="<c:url value='/static/js/app.min.js' />"></script>
 <script src="<c:url value='/static/js/demo.js' />"></script>
+<script src="<c:url value='/static/plugins/datatables/jquery.dataTables.min.js' />"></script>
+<script src="<c:url value='/static/plugins/datatables/dataTables.bootstrap.min.js' />"></script>
+<script>
+$(function () {
+    $('#table-list').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": false,
+        "info": false,
+        "autoWidth": true
+    });
+});
+</script>
 </body>
 </html>

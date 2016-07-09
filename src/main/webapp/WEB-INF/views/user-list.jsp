@@ -14,7 +14,7 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="relatorio-table"
+				<table id="table-list"
 					class="table table-bordered table-striped">
 					<thead>
 						<tr>
@@ -32,12 +32,12 @@
 								<td>${ users.firstName }</td>
 								<td>${ users.email }</td>
 								<td><a
-									href="<c:url value='/panel/sale/edit/${users.id}' />"
+									href="<c:url value='/panel/user/edit/${users.ssoId}' />"
 									class="btn btn-box-tool center-block bg-blue" title="Editar"
 									data-toggle="tooltip"> <i class="glyphicon glyphicon-edit"></i>
 								</a></td>
 								<td><a
-									href="<c:url value='/panel/sale/delete/${users.id}' />"
+									href="<c:url value='/panel/user/delete/${users.ssoId}' />"
 									class="btn btn-box-tool center-block bg-red"
 									data-toggle="tooltip" title="Excluir"> <i
 										class="glyphicon glyphicon-trash"></i>

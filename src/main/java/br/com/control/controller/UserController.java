@@ -71,7 +71,7 @@ public class UserController {
          
         userService.saveUser(user);
  
-        model.addAttribute("success", "Usuário " + user.getFirstName() + " "+ user.getLastName() + " cadastrado com sucesso");
+        model.addAttribute("success", "Usuário " + user.getFirstName() + " " + user.getLastName() + " cadastrado com sucesso");
         model.addAttribute("loggedinuser", getPrincipal());
        
         return "redirect:/panel/user/list";
@@ -83,10 +83,10 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
         model.addAttribute("loggedinuser", getPrincipal());
-        return "edit-new";
+        return "user-new";
 	}
 
-	@RequestMapping(value = { "/edit/save/{ssoId}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/edit/{ssoId}" }, method = RequestMethod.POST)
 	public String updateCategory(@Valid User user, BindingResult result, ModelMap model, @PathVariable String ssoId) {
 		if (result.hasErrors()) {
             return "user-list";

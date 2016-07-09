@@ -18,10 +18,10 @@
 				                <!-- /.box-header -->
 				                <div class="box-body">
 				                    <form:form method="POST" modelAttribute="user" class="form-horizontal">
-				                    	<form:input type="hidden" path="id" id="id" />
-				                    	
+				                    	<form:input type="hidden" path="ssoId" id="ssoId" />
+														                    	
 				                        <div class="form-group">
-				                        	<label class="col-sm-2 control-label" for="ssoId">Usu√°rio</label>
+				                        	<label class="col-sm-2 control-label" for="ssoId">Usu·rio</label>
 				                            <div class="col-sm-10">
 				                            	<form:input type="text" path="ssoId" id="ssoId" />
 				                            	<div class="has-error">
