@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import br.com.control.service.ProductService;
+import br.com.control.model.Category;
 import br.com.control.model.Product;
 
 @Controller

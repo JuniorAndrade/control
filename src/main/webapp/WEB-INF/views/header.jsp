@@ -65,7 +65,7 @@
       <ul class="sidebar-menu">
         <li class="header">MENU</li>
         <li class="treeview">
-          <c:url var="homePanel" value="/panel/index" />
+          <c:url var="homePanel" value="/" />
           <a href="${homePanel}">
             <i class="fa fa-dashboard"></i> <span>Home</span>
           </a>

@@ -48,7 +48,7 @@
 				                            </div>
 				                        </div>
 				                        <div class="form-group">
-				                        	<label class="col-sm-2 control-label" for="userProfiles">Permissões</label>
+				                        	<label class="col-sm-2 control-label" for="userProfiles">Categorias</label>
 				                            <div class="col-sm-10">
 				                            	<form:select path="category" items="${categorys}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm" />
 				                            	<div class="has-error">
